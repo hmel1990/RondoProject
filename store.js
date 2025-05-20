@@ -1,0 +1,49 @@
+
+export class Store 
+{
+
+
+addBikesUrl = 'http://hmel.myartsonline.com/dotnet/php/upload.php';
+getBikesUrl = 'http://hmel.myartsonline.com/dotnet/php/get_cities.php';
+
+
+async  uploadBikes(resultDiv, bikes) {
+  // const resultDiv = document.querySelector('#result');
+
+  resultDiv.innerHTML = '<p>Отправка данных...</p>';
+
+  try {
+    const response = await fetch(addBikesUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(bikes)
+    });
+    const result = await response.json();
+
+    if (!response.ok) throw new Error(result.error || 'Ошибка при отправке данных');
+    resultDiv.innerHTML = `<p>Успешно добавлено: ${result.filter(item => item.status === "success").length} велосипедов.</p>`;
+  } catch (error) {
+    resultDiv.innerHTML = `<p class="error">Ошибка: ${error.message}</p>`;
+  }
+}
+
+async  getBikes(resultDiv) {
+// const resultDiv = document.querySelector('#result');
+  
+  resultDiv.innerHTML = '<p>Загрузка товаров...</p>';
+
+  try {
+    const response = await fetch(getBikesUrl);
+    if (!response.ok) throw new Error(`Ошибка: ${response.statusText}`);
+    const bikes = await response.json();
+
+    if (Array.isArray(bikes) && bikes.length > 0) {
+      resultDiv.innerHTML = `<p>Список товаров:</p><ul>${bikes.map(b => `<li>${b.name} – ${b.price} USD</li>`).join('')}</ul>`;
+    } else {
+      resultDiv.innerHTML = '<p>Список товаров пуст.</p>';
+    }
+  } catch (error) {
+    resultDiv.innerHTML = `<p class="error">Ошибка: ${error.message}</p>`;
+  }
+}
+}

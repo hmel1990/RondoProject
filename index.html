@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:wght@200&family=Tapestry&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Rondo – Будущее за пределами асфальта</title>
+  <!-- Подключение стилей -->
+  <link rel="stylesheet" href="styles.css">
+  
+  <!-- <script src = "store.js" defer></script> -->
+  
+</head>
+
+<body>
+<header>
+  <div class="fullscreen">
+    <div class="mainblock">      
+      <div class="mainblock__content">
+        <div id="subline">
+                <ul class="submenu">
+                <li><a href="categories.html">Category 1</a></li>
+                <li><a href="#">Category 2</a></li>
+                <li><a href="#">Category 3</a></li>
+            </ul>
+        </div>            
+        <div class="Rondo_picture">
+          <img src="img/logo.png">
+        </div>
+        <!-- -------------------------------------------------------------------------- -->
+        <nav class="mainblock__nav">
+          <a href="/main">main</a>
+
+          <div id="category">
+            <a href="">categories</a>
+          </div>
+
+          <a href="/about">about</a>
+          <a href="/contact">contact</a>
+        <!-- -------------------------------------------------------------------------- -->
+
+        </nav>
+      </div>
+    </div>
+  </div>
+
+
+
+</header>
+
+<main>
+  <div class="about_us">
+    <div class="about_us__columns">
+
+      <div class="column__left">
+        <div class="column__img">
+        </div>
+      </div>
+
+      <div class="column__right">
+        <div class="column__text">
+          <p>  We live, breath and sleep two wheels. We race each season on and off the road. We ride thousands of km each year. We commute to work on bikes every day. We are not pro racers though. We admire the heritage of the great tours, but we can’t figure out who rides for which team these days.</p>
+          <br><br>
+          <p>  We started RONDO because we wanted to create bikes for real cyclists, like us, and most probably like you. For people who have no time to waste on talking, and want to get straight to the point. People who love to kick everyone’s ass in the local race, beat their PR on a climb, but also do a relaxed gravel ride with their friends. We started RONDO because we wanted to create bikes, that are beautiful - technically and visually. Bikes that stand out from the crowd. We started RONDO because we wanted to change the way drop bar bikes are perceived both, roadies and mountain bikers. We absolutely love to watch the faces of our road racing friends when they hit the gravel for the first time, absolutely loving it. Or see our MTB buddies gleaming with joy like kids when they get on the drops and go full gas around their local trails.</p>
+          <br><br>
+          <p>  With 15 years of experience in manufacturing bikes we put together a new team that includes the best industrial and graphic designers, engineers, riders, and experienced business managers. Here we are.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bike">
+    <div class="bike_fullscreen">
+      <div class="bike_mainblock">
+        <div class="bike_mainblock__content">
+          <div class="bike_checkout">
+            <p>But enough talk. Check out the bikes yourselves.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="mainblock2">
+    <div class="mainblock__content2">
+      <div class="Rondo_picture2">
+        <img src="img/logo.png">
+      </div>
+      <nav class="mainblock__nav2">
+        <a href="">About</a>
+        <a href="">Support</a>
+        <a href="">Follow us</a>
+        <a href="">Newsletter</a>
+      </nav>
+    </div>
+  </div>
+<script>
+
+const cat = document.getElementById('category');
+const line = document.getElementById('subline');
+const submenu = document.getElementsByClassName('submenu')[0];
+
+if (cat && submenu) {
+  cat.addEventListener("mouseover", () => {
+    submenu.style.height = "100px"; 
+    submenu.style.opacity = "1";
+
+    line.style.opacity = "1";
+    line.style.height = "10vh";
+  });
+
+  line.addEventListener("mouseleave", () => {
+    submenu.style.height = "0";
+    submenu.style.opacity = "0";
+
+    line.style.opacity = "0";
+    line.style.height = "0";
+  });
+}
+
+
+
+// ============================================================================================
+
+
+
+
+
+
+
+
+</script>
+
+
+</main>
+
+<footer>
+
+<div class="footer_wrapper">
+  <p>&copy; 2025 Rondo. Все права защищены.</p>
+
+</div>
+</footer>
+</body>
+</html>

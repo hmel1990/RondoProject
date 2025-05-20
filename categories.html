@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories</title>
+  <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+
+
+    <!-- ==================================== TEST ======================================================== -->
+<div class="container">
+  <div id="result"></div>
+</div>
+<!-- ============================================================================================ -->
+
+
+    <script>
+                
+        document.addEventListener("DOMContentLoaded", ()=> {
+            renderFunction ();
+        });
+        
+        function renderFunction ()
+        {
+            const store = new Store();
+            store.renderBikes();            
+        }
+        
+        
+        // =============================== class Store  =============================================================
+        
+        const resultDiv = document.querySelector('#result');
+        const addBikesUrl = 'http://hmel.myartsonline.com/dotnet/php/upload.php';
+        const getBikesUrl = 'http://hmel.myartsonline.com/dotnet/php/get_cities.php';
+
+class Store 
+  {
+   async  uploadBikes(bikes) {
+   const resultDiv = document.querySelector('#result');
+
+  resultDiv.innerHTML = '<p>Отправка данных...</p>';
+
+  try {
+    const response = await fetch(addBikesUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(bikes)
+    });
+    const result = await response.json();
+
+    if (!response.ok) throw new Error(result.error || 'Ошибка при отправке данных');
+    resultDiv.innerHTML = `<p>Успешно добавлено: ${result.filter(item => item.status === "success").length} велосипедов.</p>`;
+  } catch (error) {
+    resultDiv.innerHTML = `<p class="error">Ошибка: ${error.message}</p>`;
+  }
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+async  renderBikes() {
+const resultDiv = document.querySelector('#result');
+
+  try 
+  {
+    const response = await fetch(getBikesUrl);
+
+    if (!response.ok) {
+      throw new Error(`Ошибка: ${response.statusText}`);
+    }
+
+    const bikes = await response.json();
+
+    if (Array.isArray(bikes) && bikes.length > 0) 
+    {
+      resultDiv.innerHTML = ''; // очищаем контейнер
+
+      bikes.forEach(bike => {
+        const card = document.createElement('div');
+        card.classList.add('bike-card');
+        card.style.width = "40%";
+        card.style.height = "55vh";
+        card.style.background = `url(${bike.image}) 0 0/cover no-repeat`;
+        
+        
+        
+        card.innerHTML = `
+          <h3>${bike.name}</h3>
+          <p>${bike.price} USD.</p>
+          <button class="add-to-cart" data-id="${bike.id}" data-name="${bike.name}" data-price="${bike.price}">
+            В корзину
+          </button>
+        `;
+
+        resultDiv.appendChild(card);
+      });
+    }
+
+    else
+    {
+      resultDiv.innerHTML = '<p>Список товаров пуст.</p>';
+    }
+  } 
+  catch (error) 
+  {
+    resultDiv.innerHTML = `<p class="error">Ошибка: ${error.message}</p>`;
+  }
+}
+}
+
+// const store = new Store();
+// ============================================================================================
+    </script>
+    
+</body>
+</html>

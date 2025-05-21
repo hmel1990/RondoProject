@@ -4,33 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Categories</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="categoryStyle.css">
 
 </head>
 <body>
 
 
-    <!-- ==================================== TEST ======================================================== -->
 <div class="container">
   <div id="result"></div>
 </div>
-<!-- ============================================================================================ -->
 
 
     <script>
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const category = urlParams.get('category');
                 
         document.addEventListener("DOMContentLoaded", ()=> {
             renderFunction ();
         });
+
         
         function renderFunction ()
         {
             const store = new Store();
-            store.renderBikes();            
+            store.renderBikes();
         }
         
         
-        // =============================== class Store  =============================================================
+
+        
+        // =============================== class Store  ===================================================================================================
         
         const resultDiv = document.querySelector('#result');
         const addBikesUrl = 'http://hmel.myartsonline.com/dotnet/php/upload.php';
@@ -59,8 +63,36 @@ class Store
 }
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
 async  renderBikes() {
+
+const mainblock__wrapper = document.createElement('div');
+mainblock__wrapper.classList.add('mainblock__wrapper');
+const body = document.body;
+body.prepend(mainblock__wrapper);
+const mainblock__content = document.createElement('div');
+mainblock__content.classList.add('mainblock__content');
+mainblock__content.innerHTML = `
+        <div class="rondo_picture"> <img src="img/logo.png"> </div>
+        <!-- -------------------------------------------------------------------------- -->
+        <nav class="mainblock__nav">
+          <a href="/main">main</a>
+          <a href="">categories</a>
+          <a href="/about">about</a>
+          <a href="/contact">contact</a>
+        </nav>
+`;
+
+mainblock__wrapper.prepend(mainblock__content);
+
+
+
+
+
+
 const resultDiv = document.querySelector('#result');
+let products = []; // Инициализация как массива
 
   try 
   {
@@ -72,16 +104,26 @@ const resultDiv = document.querySelector('#result');
 
     const bikes = await response.json();
 
+    
+    localStorage.setItem('bikes', JSON.stringify(bikes));
+
+    // const savedProducts = JSON.parse(localStorage.getItem('products')); для возврата данных обратно
+
+
+    products = bikes.filter(bike => bike.category === category);
+    
     if (Array.isArray(bikes) && bikes.length > 0) 
     {
       resultDiv.innerHTML = ''; // очищаем контейнер
 
-      bikes.forEach(bike => {
+      const mainContainer = document.createElement ('div');
+      mainContainer.classList.add('main_container');
+      
+
+      products.forEach(bike => {
         const card = document.createElement('div');
-        card.classList.add('bike-card');
-        card.style.width = "40%";
-        card.style.height = "55vh";
-        card.style.background = `url(${bike.image}) 0 0/cover no-repeat`;
+        card.classList.add('bike_card');
+        card.style.background = `url(${bike.image}) center center/contain no-repeat`;
         
         
         
@@ -93,8 +135,10 @@ const resultDiv = document.querySelector('#result');
           </button>
         `;
 
-        resultDiv.appendChild(card);
+        mainContainer.appendChild (card)
+        
       });
+      resultDiv.appendChild(mainContainer);
     }
 
     else
@@ -109,8 +153,7 @@ const resultDiv = document.querySelector('#result');
 }
 }
 
-// const store = new Store();
-// ============================================================================================
+// ========================================================================================================================================
     </script>
     
 </body>

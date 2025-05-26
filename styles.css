@@ -68,7 +68,21 @@ html,body{height:100%;width:100%;font-size:100%;line-height:1;font-size:14px;-ms
     opacity: 0;
     transition: height 0.6s ease, opacity 0.6s ease;
 }   
+.basket_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 10%;
 
+}
+
+.basket_picture img {
+
+        max-width: 40%;
+        height: auto;
+        object-fit: contain;
+        filter: invert(100%);
+}
 
 .mainblock__nav a {
     font-family: 'Roboto Serif', serif;

@@ -9,7 +9,7 @@
   <title>Rondo – Будущее за пределами асфальта</title>
   <!-- Подключение стилей -->
   <link rel="stylesheet" href="styles.css">
-  
+   
   <!-- <script src = "store.js" defer></script> -->
   
 </head>
@@ -50,7 +50,17 @@
     </div>
   </div>
 
+<script>
+      const basket_wrapper = document.querySelector('.basket_wrapper');
+      const basket_picture = document.querySelector('.basket_picture');
+          basket_picture.addEventListener ('click', () => {
+            
+            localStorage.setItem('currentView', 'basket');
+            window.location.href = 'categories.html';
 
+          });
+          basket_wrapper.addEventListener ('click', openbasket);
+</script>
 
 </header>
 

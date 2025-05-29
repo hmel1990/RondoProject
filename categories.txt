@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories</title>
+  <link rel="stylesheet" href="categoryStyle.css">
+
+</head>
+<body>
+
+
+<div class="container">
+  <div id="result"></div>
+</div>
+
+
+    <script>
+      let basket;
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const category = urlParams.get('category');
+      const resultDiv = document.querySelector('#result');
+      const addBikesUrl = 'http://hmel.myartsonline.com/dotnet/php/upload.php';
+      const getBikesUrl = 'http://hmel.myartsonline.com/dotnet/php/get_cities.php';
+      const body = document.body;
+
+
+      document.addEventListener("DOMContentLoaded", ()=> {
+          basket = new Basket();
+          const lastPage = localStorage.getItem('currentView');
+          if (lastPage === 'cart') opencard();
+          else if (lastPage === 'basket') openbasket();
+          else renderFunction();
+      });
+
+
+
+
+      function openbasket()
+        {
+            localStorage.setItem('currentView', 'basket');
+
+            body.innerHTML = '';
+            const resultDiv = document.createElement('div');
+            resultDiv.classList.add('resultDiv');
+            body.appendChild(resultDiv);
+            resultDiv.innerHTML = ''; // очищаем контейнер
+
+
+            let bikesInBasket = basket.getCookieArray ('bikesInBasket');
+
+
+
+            bikesInBasket.forEach(bike => {
+              const cardLineInBasket = document.createElement('div');
+              cardLineInBasket.classList.add('cardLineInBasket')
+              cardLineInBasket.setAttribute('data-id', bike.id);
+
+              cardLineInBasket.innerHTML = `
+              <h3> bike name:${bike.name}</h3>
+              `;
+              resultDiv.appendChild(cardLineInBasket);
+            });
+
+        }
+
+        function renderFunction ()
+        {
+            basket = new Basket();
+            let store = new Store();
+            store.renderBikes(basket);
+            localStorage.setItem('currentView', 'home');
+        }
+
+
+        function opencard(e) {
+            let id;
+            if (e && e.target)
+            {
+                id = e.target.getAttribute('data-id');
+                localStorage.setItem('lastOpenedBikeId', id);
+            }
+            else {
+                // Если вызвано напрямую, например, при загрузке страницы
+                id = localStorage.getItem('lastOpenedBikeId');
+                if (!id) {
+                    alert('ID не найден. Невозможно отобразить карточку товара.');
+                    return;
+                }
+            }
+
+        let bikes = JSON.parse(localStorage.getItem('bikes'));
+        let product = bikes.find(data => data.id === id);
+
+        resultDiv.innerHTML = '';
+            body.innerHTML = `
+
+<div class="mainblock">
+      <div class="mainblock__content">
+        <div id="subline">
+                <ul class="submenu">
+                <li><a href="categories.html?category=RUUT">RUUT</a></li>
+                <li><a href="categories.html?category=MYLC">MYLC</a></li>
+                <li><a href="categories.html?category=RATT">RATT</a></li>
+            </ul>
+        </div>
+        <div class="rondo_picture">
+          <img src="img/logo.png">
+        </div>
+        <!-- -------------------------------------------------------------------------- -->
+        <nav class="mainblock__nav">
+          <a href="/main">main</a>
+
+          <div id="category">
+            <a href="">categories</a>
+          </div>
+
+          <a href="/about">about</a>
+          <a href="/contact">contact</a>
+        <!-- -------------------------------------------------------------------------- -->
+
+        </nav>
+
+        <div class="basket_wrapper">
+          <div class="rondo_picture basket_picture"><img src="/img/basket2.png" alt=""></div>
+        </div>
+      </div>
+    </div>
+
+<!--================================================================================================================-->
+            <div class="card_forShow_wrapper">
+                <div class="card_forShow">
+                    <button class="backToCategory">
+                        К категориям
+                    </button>
+                </div>
+                <div class="card_forShow_text">${product.id}</div>
+            </div>
+            `;
+
+
+
+            const card_forShow = document.querySelector('.card_forShow');
+            card_forShow.style.background = `url(${product.image}) center center/contain no-repeat`;
+            // ======================================================================================
+            const buttons = document.querySelectorAll('.backToCategory');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', (e) => {location.reload();});
+            });
+
+            // ======================================================================================
+
+            const cat = document.getElementById('category');
+            const line = document.getElementById('subline');
+            const submenu = document.getElementsByClassName('submenu')[0];
+
+
+
+
+            if (cat && submenu) {
+                cat.addEventListener("mouseover", () => {
+                    submenu.style.height = "100px";
+                    submenu.style.opacity = "1";
+
+                    line.style.opacity = "1";
+                    line.style.height = "25vh";
+                })
+            }
+
+            line.addEventListener("mouseleave", () => {
+                submenu.style.height = "0";
+                submenu.style.opacity = "0";
+
+                line.style.opacity = "0";
+                line.style.height = "0";
+            });
+
+            submenu.addEventListener('click', ()=> {
+              body.innerHTML = ``;
+              resultDiv.innerHTML = ``;
+              renderFunction()
+            } );
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+            localStorage.setItem('currentView', 'cart');
+            localStorage.setItem('lastOpenedBikeId', id);
+
+        }
+
+      async function basketAdd(e, basket)
+        {
+          const id = e.target.getAttribute('data-id');
+          let bikes = JSON.parse(localStorage.getItem('bikes'));
+          let product = bikes.find(data => data.id === id);
+
+          await basket.addToBasket (product);
+          alert( 'тыц')
+
+        }
+        
+        
+
+          
+        
+        // =============================== class Store  ===================================================================================================
+        
+
+
+class Store 
+  {
+   async  uploadBikes(products) {
+   const resultDiv = document.querySelector('#result');
+  try {
+    const response = await fetch(addBikesUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(bikes)
+    });
+    const result = await response.json();
+
+    if (!response.ok) throw new Error(result.error || 'Ошибка при отправке данных');
+    resultDiv.innerHTML = `<p>Успешно добавлено: ${result.filter(item => item.status === "success").length} велосипедов.</p>`;
+  } catch (error) {
+    resultDiv.innerHTML = `<p class="error">Ошибка: ${error.message}</p>`;
+  }
+}
+
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------------------------------
+
+// =============================== Метод по отрисовке страницы  ===================================================================================================
+
+async  renderBikes(basket, productsBikes) {
+
+const mainblock__wrapper = document.createElement('div');
+mainblock__wrapper.classList.add('mainblock__wrapper');
+body.prepend(mainblock__wrapper);
+const mainblock__content = document.createElement('div');
+mainblock__content.classList.add('mainblock__content');
+mainblock__content.innerHTML = `
+        <!-- ----------------------------- Подстрока с категориями которая исчезает --------------------------------------------- -->
+        <div id="subline">
+                <ul class="submenu">
+                <li><a href="categories.html?category=RUUT">RUUT</a></li>
+                <li><a href="categories.html?category=MYLC">MYLC</a></li>
+                <li><a href="categories.html?category=RATT">RATT</a></li>
+            </ul>
+        </div>     
+        <div class="rondo_picture"> <img src="img/logo.png"> </div>
+        <!-- -------------------------------------------------------------------------- -->
+        <nav class="mainblock__nav">
+          <a href="/main">main</a>
+          <div id="category">
+            <a href="">categories</a>
+          </div>
+          <a href="/about">about</a>
+          <a href="/contact">contact</a>
+        </nav>
+        <div class="basket_wrapper">
+          <div class="rondo_picture basket_picture"><img src="/img/basket2.png" alt=""></div>
+        </div>
+        
+`;
+const lineWithCategory = document.createElement('div');
+lineWithCategory.classList.add('lineWithCategory');
+mainblock__wrapper.prepend(lineWithCategory);
+mainblock__wrapper.prepend(mainblock__content);
+lineWithCategory.innerHTML = `<p>${category}</p>`;
+
+// ===================== Подстрока с категориями  ========================= 
+     const cat = document.getElementById('category');
+     const line = document.getElementById('subline');
+     const submenu = document.getElementsByClassName('submenu')[0];
+
+    const basket_wrapper = document.querySelector('.basket_wrapper');
+    const basket_picture = document.querySelector('.basket_picture');
+
+
+
+      if (cat && submenu) {
+        cat.addEventListener("mouseover", () => {
+          submenu.style.height = "100px";
+          submenu.style.opacity = "1";
+        
+          line.style.opacity = "1";
+          line.style.height = "25vh";
+        })
+      };
+    
+      line.addEventListener("mouseleave", () => {
+        submenu.style.height = "0";
+        submenu.style.opacity = "0";
+      
+        line.style.opacity = "0";
+        line.style.height = "0";
+      });
+
+    basket_picture.addEventListener ('click', openbasket);
+    basket_wrapper.addEventListener ('click', openbasket);
+// ======================================================================= 
+
+
+
+
+
+
+// =====================  Загрузка продуктов  ========================= 
+
+const resultDiv = document.querySelector('#result');
+let products = []; // Инициализация как массива
+
+  try 
+  {
+    const response = await fetch(getBikesUrl);
+
+    if (!response.ok) {
+      throw new Error(`Ошибка: ${response.statusText}`);
+    }
+
+    const bikes = await response.json();
+
+    
+    localStorage.setItem('bikes', JSON.stringify(bikes));
+
+    // const savedProducts = JSON.parse(localStorage.getItem('bikes')); для возврата данных обратно
+// ======================================================================= 
+
+
+
+
+// =====================  Фильтр продуктов по категориям ========================= 
+
+    productsBikes = bikes;
+    products = bikes.filter(bike => bike.category === category);
+    
+    if (Array.isArray(bikes) && bikes.length > 0) 
+    {
+      resultDiv.innerHTML = ''; // очищаем контейнер
+
+      const mainContainer = document.createElement ('div');
+      mainContainer.classList.add('main_container');
+      
+
+      products.forEach(bike => {
+        const card = document.createElement('div'); // создаем контейнер с карточкой товара
+        card.classList.add('bike_card');
+        card.setAttribute('data-id', bike.id);
+        card.style.background = `url(${bike.image}) center center/contain no-repeat`;
+               
+        card.innerHTML = `
+          <h3>${bike.name}</h3>
+          <p>${bike.price} USD.</p>
+          <button class="add-to-cart" id = "buybtn" data-id="${bike.id}" data-name="${bike.name}" data-price="${bike.price}">
+            В корзину
+          </button>
+        `;
+
+        mainContainer.appendChild (card) // добавляем каждую созданную карту товара в общий контейнер
+        
+      });
+      resultDiv.appendChild(mainContainer); // добавляем общий контейнер в основной контейнер
+// ======================================================================= 
+
+
+
+      // ================ Ставим обработчик событй на кнопку добавить ==========================
+      const buttons = document.querySelectorAll('.add-to-cart');
+
+      buttons.forEach(button => {
+          button.addEventListener('click', (e) => {
+              e.stopPropagation(); // Останавливает всплытие события
+              basketAdd(e, basket);
+          });
+      });
+      // =======================================================================================
+
+        // ================ Ставим обработчик событий на нажатие на кнопку ==========================
+
+        const cards = document.querySelectorAll('.bike_card');
+        cards.forEach(card => {
+            card.addEventListener('click', opencard);
+        })
+    }
+
+    else
+    {
+      resultDiv.innerHTML = '<p>Список товаров пуст.</p>';
+    }
+  } 
+  catch (error) 
+  {
+    resultDiv.innerHTML = `<p class="error">Ошибка: ${error.message}</p>`;
+  }
+}
+}
+
+// ========================================================================================================================================
+    
+
+// =============================== class Basket  ===================================================================================================
+class Basket {
+
+  basketGoods = [];
+  
+  async addToBasket(productItem) {
+  
+  // Пытаемся получить уже сохранённые товары
+  const existing = this.getCookie('bikesInBasket');
+  let basketArray;
+
+  if (existing) {
+    try 
+    {
+      basketArray = JSON.parse(existing);
+      if (!Array.isArray(basketArray)) basketArray = [];
+    } 
+    catch (e) 
+    {
+      console.error('Ошибка при разборе JSON из cookie:', e);
+      basketArray = [];
+    }
+  } 
+  else {
+    basketArray = [];
+  }
+
+  // Добавляем товар и обновляем cookie
+  basketArray.push(productItem);
+  document.cookie = `bikesInBasket=${encodeURIComponent(JSON.stringify(basketArray))}; path=/; max-age=${3600 * 24}`;
+}
+
+
+  getCookie(name) {
+    const cookies = document.cookie.split('; '); //тут из строки куки делается массив
+    for (let cookie of cookies) //каждый элемент массива разбивается на key, value
+    {
+      const [key, value] = cookie.split('=');
+      if (key === name) 
+      {
+        return decodeURIComponent(value);
+      }
+    }
+    return null;
+  }//возвращается строка
+
+ getCookieArray(name) {
+    const cookies = document.cookie.split('; ');
+    for (let cookie of cookies) {
+        const [key, value] = cookie.split('=');
+        if (key === name) {
+            try {
+                return JSON.parse(decodeURIComponent(value)); // Парсим JSON в массив объектов
+            } catch (e) {
+                console.error("Ошибка парсинга JSON из cookie:", e);
+                return [];
+            }
+        }
+    }
+    return [];
+}
+
+}  
+
+
+
+
+// =============================== class Product  ===================================================================================================
+class Product {
+  constructor(
+    id, category, name, frame, tyres,
+    deraileurFront, deraileurRear,
+    saddle, shifters, price, color) 
+    {
+    this.id = id;
+    this.category = category;
+    this.name = name;
+    this.frame = frame;
+    this.tyres = tyres;
+    this.deraileurFront = deraileurFront;
+    this.deraileurRear = deraileurRear;
+    this.saddle = saddle;
+    this.shifters = shifters;
+    this.price = price;
+    this.color = color;
+    }
+}
+    </script>
+    
+</body>
+</html>

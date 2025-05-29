@@ -1,0 +1,288 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    margin: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color:rgb(75, 92, 113);
+
+    color: #ffffff;
+    cursor: pointer;
+}
+button:hover {
+    background-color:rgba(75, 92, 113, 0.524);
+
+}
+pre {
+    background-color: #2a2a2a;
+    padding: 10px;
+    border-radius: 5px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    text-align: left;
+}
+.error {
+    color: #ff5555;
+}
+
+
+.mainblock__wrapper{
+    margin: 0 auto;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    flex-direction:  row;
+
+}
+
+.mainblock__content {
+    background-color: gray;
+    display: flex;
+    width: 100%;
+    position: fixed;
+}
+
+.mainblock__nav {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 30px 5% 20px;
+    position: relative;
+}
+
+.mainblock__nav a {
+    font-family: 'Roboto Serif', serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    color: white;
+    text-decoration: none;
+
+}
+.rondo_picture{
+    padding: 20px 5%;
+}
+
+#result {
+width: 100%;
+}
+
+
+
+
+.main_container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.bike_card {
+width: 45%;
+height: 55vh;
+margin: 30vh auto;
+}
+
+.lineWithCategory {
+    height: 30vh;
+    width: 100%;
+    background-color: rgba(128, 128, 128, 0.445);
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+
+}
+.lineWithCategory p{
+    padding: 15vh 0;
+    font-family: 'Roboto Serif', serif;
+    font-weight: 700;
+    font-size: 3.5rem;
+    text-transform: uppercase;
+    color: black;
+    text-decoration: none;
+
+
+}
+
+
+
+#subline ul {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 80%;
+  gap: 30px;
+  list-style: none;
+}
+
+#subline ul li a {
+    font-family: 'Roboto Serif', serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    color: white;
+    text-decoration: none;
+    line-height: 30px;
+}
+
+#subline {
+    z-index: 1;
+  display: flex;
+  justify-content: center; /* по горизонтали */
+  align-items: center;     /* по вертикали */
+
+    position: absolute;
+    top: 70px;
+    width: 100%;
+    background-color: gray;
+    z-index: 0;
+    overflow: hidden;
+    height: 0;
+    opacity: 0;
+    transition: height 0.6s ease, opacity 0.6s ease;
+}
+.basket_wrapper {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 10%;
+
+}
+
+.basket_picture img {
+
+    max-width: 40%;
+    height: auto;
+    object-fit: contain;
+    filter: invert(100%);
+}
+
+.card_forShow {
+    height: 60vh;
+    width: 80%;
+    margin: 90px auto 0 auto;
+    transition: margin 0.6s ease;
+
+
+
+}
+.card_forShow_wrapper {
+    width: 100%;
+    padding: 1px;
+}
+
+.card_forShow_text {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+
+
+}
+.card_forShow_text_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    align-items: center;
+
+}
+
+
+/* .cardLineInBasket {
+
+} */
+
+#bikesInBasketWrapper {
+    margin: 10vh auto 0 auto;
+
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+/* .basket_line {
+
+} */
+.mainblock_in_basket{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.basketPriceNumberWrapper{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    /* border: #ff5555 3px solid; */
+    background-color: rgba(128, 128, 128, 0.336);
+    padding: 10px 50px;
+    margin: 0 auto;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+.buttonAndProductWrapper {
+ display: flex;
+ justify-content: space-between;
+ width: 80%;
+ border-bottom: black solid 1px;
+
+ /* border: 3px salmon solid;    */
+}
+
+.buttonForm {
+    width: 300px;
+    background-color:rgb(75, 92, 113);
+       
+}
+.buttonForm:hover {
+    background-color:rgba(75, 92, 113, 0.524);
+
+}
+
+/* ================================================================================ */
+
+@media screen and (max-width:425px)
+{
+.bike_card {
+width: 90%;
+}
+
+.mainblock__wrapper{
+    margin: 0 auto;
+    width: 100%;
+    /* height: 80px; */
+    display: flex;
+    flex-direction:  column;
+    margin-bottom: 160px;
+
+}
+
+.mainblock__nav {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px 5% 20px;
+    /* position: relative; */
+}
+
+.mainblock__content {
+    background-color: gray;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: static;
+}
+} 
+

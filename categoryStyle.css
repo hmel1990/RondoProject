@@ -90,12 +90,24 @@ width: 100%;
     flex-wrap: wrap;
     justify-content: space-between;
     flex-direction: row;
+
+
 }
 
-.bike_card {
+.mainContainer_inbasket{
+    margin-top: 25vh;
+}
+
+/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+.bike_card { 
 width: 45%;
 height: 55vh;
-margin: 30vh auto;
+margin: 3vh auto;
+
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.202);
 }
 
 .lineWithCategory {
@@ -231,9 +243,7 @@ margin: 30vh auto;
     justify-content: center;
     align-items: center;
 }
-.basket_line {
-    
-}
+
 .mainblock_in_basket{
     position: absolute;
     top: 0;

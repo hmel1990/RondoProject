@@ -12,13 +12,13 @@ export class Store
           addBikesUrl = 'http://hmel.myartsonline.com/dotnet/php/upload.php';
           getBikesUrl = 'http://hmel.myartsonline.com/dotnet/php/get_cities.php';
 
-   async  uploadBikes() {
+   async  uploadBikes(bike) {
    const resultDiv = document.querySelector('#result');
   try {
     const response = await fetch(addBikesUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(bikes)
+      body: JSON.stringify(bike)
     });
     const result = await response.json();
 
@@ -141,7 +141,7 @@ let products = []; // Инициализация как массива
       resultDiv.innerHTML = ''; // очищаем контейнер
 
       const mainContainer = document.createElement ('div');
-      mainContainer.classList.add('main_container');
+      mainContainer.classList.add('main_container', 'mainContainer_inbasket');
       
 
       products.forEach(bike => {

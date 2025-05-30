@@ -222,7 +222,7 @@ removeItemFromBasket (itemID)
           submenu.style.opacity = "1";
         
           line.style.opacity = "1";
-          line.style.height = "10vh";
+          line.style.height = "12vh";
         })
       };
     

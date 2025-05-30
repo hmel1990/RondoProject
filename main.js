@@ -81,8 +81,8 @@ let basket;
             <a href="">categories</a>
           </div>
 
-          <a href="index.html">about</a>
-          <a href="index.html">contact</a>
+          <a href="#" onclick="return false;">about</a>
+          <a href="#" onclick="return false;">contact</a>
         <!-- -------------------------------------------------------------------------- -->
 
         </nav>
@@ -94,6 +94,7 @@ let basket;
     </div>
 
 <!--================================================================================================================-->
+<div class="card_forShow_wrapper_wrapper">            
             <div class="card_forShow_wrapper">
                 <div class="card_forShow">
                     <button class="backToCategory">
@@ -115,6 +116,7 @@ let basket;
                 </div>
                 </div>
             </div>
+  </div>  
             `;
 
 

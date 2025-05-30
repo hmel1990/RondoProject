@@ -57,8 +57,8 @@ mainblock__content.innerHTML = `
           <div id="category">
             <a href="">categories</a>
           </div>
-          <a href="index.html">about</a>
-          <a href="index.html">contact</a>
+          <a href="#" onclick="return false;">about</a>
+          <a href="#" onclick="return false;">contact</a>
         </nav>
         <div class="basket_wrapper">
           <div class="rondo_picture basket_picture"><img src="/img/basket2.png" alt=""></div>

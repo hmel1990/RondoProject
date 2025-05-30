@@ -15,6 +15,13 @@ button {
     color: #ffffff;
     cursor: pointer;
 }
+button{
+
+    font-family: 'Roboto Serif', serif;
+    font-size: medium;
+
+}
+
 button:hover {
     background-color:rgba(75, 92, 113, 0.524);
 
@@ -175,10 +182,23 @@ margin: 30vh auto;
 
 
 
+
+
 }
-.card_forShow_wrapper {
+.card_forShow_wrapper_wrapper{
+
     width: 100%;
     padding: 1px;
+
+}
+.card_forShow_wrapper {
+    width: 50%;
+
+    margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.202);
 }
 
 .card_forShow_text {
@@ -211,9 +231,9 @@ margin: 30vh auto;
     justify-content: center;
     align-items: center;
 }
-/* .basket_line {
-
-} */
+.basket_line {
+    
+}
 .mainblock_in_basket{
     position: absolute;
     top: 0;
@@ -227,7 +247,7 @@ margin: 30vh auto;
     /* border: #ff5555 3px solid; */
     background-color: rgba(128, 128, 128, 0.336);
     padding: 10px 50px;
-    margin: 0 auto;
+    margin: 10vh auto 0;
     font-weight: bold;
     font-size: 1.2rem;
 }
@@ -289,6 +309,8 @@ margin: 30vh auto;
     border-radius: 5px;
     border: none;
     background-color:rgb(75, 92, 113);
+    font-family: 'Roboto Serif', serif;
+    font-size: medium;
 
     color: #ffffff;
     cursor: pointer;
@@ -310,7 +332,15 @@ margin: 30vh auto;
 #submitButton{
     width: 50%;
     margin: 0 auto;
+    font-family: 'Roboto Serif', serif;
+
 }
+#submitButton p {
+    font-family: 'Roboto Serif', serif;
+
+}
+
+
 .text_delivery p {
   width: fit-content;
   margin: 0 auto;

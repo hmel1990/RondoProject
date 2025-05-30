@@ -122,8 +122,8 @@ removeItemFromBasket (itemID)
             <a href="">categories</a>
           </div>
 
-          <a href="index.html">about</a>
-          <a href="index.html">contact</a>
+          <a href="#" onclick="return false;">about</a>
+          <a href="#" onclick="return false;">contact</a>
         <!-- -------------------------------------------------------------------------- -->
 
         </nav>
@@ -222,7 +222,7 @@ removeItemFromBasket (itemID)
           submenu.style.opacity = "1";
         
           line.style.opacity = "1";
-          line.style.height = "15vh";
+          line.style.height = "10vh";
         })
       };
     
@@ -240,6 +240,13 @@ removeItemFromBasket (itemID)
               renderFunction()
             } );
 
+      submenu.addEventListener('click', ()=> {
+        body.innerHTML = ``;
+        resultDiv.innerHTML = ``;
+        localStorage.setItem('currentView', 'card');
+
+        renderFunction()
+      } ); /////////////////////////////////////////////////////////////////////////
             
 // =============================== Оформление формы ================================================================
 
@@ -321,7 +328,7 @@ removeItemFromBasket (itemID)
                   
                   
                   <div class="submitButton_wrapper">        
-                    <button type="button" id="submitButton">Отправить</button>
+                    <button type="button" id="submitButton"><p>Отправить</p></button>
                   </div>
 
                 </div>
@@ -343,7 +350,9 @@ removeItemFromBasket (itemID)
             getdata(event) 
             {
               event.preventDefault();
-  
+
+
+
               let name = document.getElementById("name").value;
               let surname = document.getElementById("surname").value;
               let telephone = document.getElementById("telephone").value;
@@ -375,7 +384,10 @@ removeItemFromBasket (itemID)
                 `;
               }).join('');
               document.getElementById("output").innerHTML = confirmationMessage + `<strong> <br>Приобретенные товары:</strong> ${bikesForSale}`;
-              
+                            window.scrollTo({
+                                top: document.body.scrollHeight,
+                                behavior: 'smooth'
+                              });
 
             }
 

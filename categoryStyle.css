@@ -249,7 +249,106 @@ margin: 30vh auto;
     background-color:rgba(75, 92, 113, 0.524);
 
 }
+/* ===================================== Форма!!! =========================================== */
+.form-container {
+      margin: 11vh auto 0  auto;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 800px;
+    }
 
+     .form-container label {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 5px;
+      display: block;
+    }
+    
+    .form-container input[type="email"],
+    .form-container input[type="text"],
+    .form-container input[type="password"],
+    .form-container textarea,
+    .form-container select {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0 16px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-sizing: border-box;
+      transition: border-color 0.3s;
+    }
+
+
+    .form-container input[type="submit"],
+    .form-container input[type="reset"]{
+    padding: 0.5rem 1rem;
+    margin: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color:rgb(75, 92, 113);
+
+    color: #ffffff;
+    cursor: pointer;
+}
+.form-container input[type="submit"]:hover,  .form-container input[type="reset"]:hover {
+    background-color:rgba(75, 92, 113, 0.524);
+
+}
+.buttons_wrapper {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+.submitButton_wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+#submitButton{
+    width: 50%;
+    margin: 0 auto;
+}
+.text_delivery p {
+  width: fit-content;
+  margin: 0 auto;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.radio-group label {
+  font-weight: normal;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.radio-option input[type="radio"] {
+  margin-right: 10px;
+}
+
+    .radio-group input[type="radio"] {
+      margin: 0 8px 0 0;
+    }
+    .radio-group label {
+      margin: 0;
+    }
+  .radio-group {
+    margin-bottom: 20px;
+  }
+  
+  .output {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f3f4f6;
+      border-radius: 8px;
+      color: #333;
+    }
 /* ================================================================================ */
 
 @media screen and (max-width:425px)

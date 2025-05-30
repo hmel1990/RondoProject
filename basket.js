@@ -44,7 +44,6 @@ export class Basket {
 
 
 
-  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   document.cookie = `bikesInBasket=${encodeURIComponent(JSON.stringify(basketArray))}; path=/; max-age=${3600 * 24}`;
 }
 
@@ -94,7 +93,293 @@ removeItemFromBasket (itemID)
 }
 
 
+// ===================================== OPEN BASKET ==============================================================
+
+ openbasket()
+        {
+            localStorage.setItem('currentView', 'basket');
+            // let basket = new Basket();
+            let body = document.body;
+            body.innerHTML = `
+
+<div class="mainblock mainblock_in_basket">
+      <div class="mainblock__content basket_line">
+        <div id="subline">
+                <ul class="submenu">
+                <li><a href="categories.html?category=RUUT">RUUT</a></li>
+                <li><a href="categories.html?category=MYLC">MYLC</a></li>
+                <li><a href="categories.html?category=RATT">RATT</a></li>
+            </ul>
+        </div>
+        <div class="rondo_picture">
+          <img src="img/logo.png">
+        </div>
+        <!-- -------------------------------------------------------------------------- -->
+        <nav class="mainblock__nav">
+          <a href="index.html">main</a>
+
+          <div id="category">
+            <a href="">categories</a>
+          </div>
+
+          <a href="index.html">about</a>
+          <a href="index.html">contact</a>
+        <!-- -------------------------------------------------------------------------- -->
+
+        </nav>
+
+        <div class="basket_wrapper">
+          <div class="rondo_picture basket_picture"><img src="/img/basket2.png" alt=""></div>
+        </div>
+      </div>
+    </div>
+            `;
+
+            // Создаём и добавляем новый resultDiv
+            const resultDiv = document.createElement('div');
+            resultDiv.id = 'result';
+            body.appendChild(resultDiv);
+            const bikesInBasketWrapper = document.createElement('div');
+            bikesInBasketWrapper.id = 'bikesInBasketWrapper';
+            resultDiv.appendChild(bikesInBasketWrapper);
+
+  // получаем данные из корзины и отображаем
+    let bikesInBasket = this.getCookieArray('bikesInBasket');
+
+    
+
+    let count =  bikesInBasket.reduce((acc, cur) => acc + cur.count, 0);
+    let totalPrice = bikesInBasket.reduce((acc, curr) =>acc+parseInt(curr.price), 0); 
+    
+    const numberBikesInBasket = document.createElement('div');
+    const totalPriceInBasket = document.createElement('div');
+
+    totalPriceInBasket.classList.add ('totalPriceInBasket');
+    numberBikesInBasket.classList.add ('numberBikesInBasket');
+
+    totalPriceInBasket.innerHTML = `TotalPrice: ${totalPrice} USD`;
+    numberBikesInBasket.innerHTML = `Total number: ${count}`;
 
 
+    bikesInBasket.forEach(bike => {
+      const buttonAndProductWrapper = document.createElement('div');
+      buttonAndProductWrapper.classList.add('buttonAndProductWrapper');
+
+      const buttonRemove = document.createElement('button');
+      buttonRemove.classList.add('buttonRemove');
+      buttonRemove.setAttribute('data-id', bike.id);
+      buttonRemove.textContent = 'Удалить';
+
+      const cardLineInBasket = document.createElement('div');
+      cardLineInBasket.classList.add('cardLineInBasket');
+      cardLineInBasket.setAttribute('data-id', bike.id);
+      cardLineInBasket.innerHTML = `
+      <h3> bike name:${bike.name}</h3> 
+      <h3> bike price:${bike.price}</h3> 
+      <h3> bike quantity:${bike.count}</h3> 
+      `;
+      buttonAndProductWrapper.appendChild(cardLineInBasket);
+      buttonAndProductWrapper.appendChild(buttonRemove);
+
+      buttonRemove.addEventListener ('click', (e) => {
+      const basket = new Basket();
+      const id = e.target.getAttribute('data-id');
+      basket.removeItemFromBasket (id);
+      window.location.reload();
+      });
+
+
+      bikesInBasketWrapper.appendChild(buttonAndProductWrapper);
+    });
+    
+    const basketPriceNumberWrapper = document.createElement('div');
+    basketPriceNumberWrapper.classList.add('basketPriceNumberWrapper');
+
+    basketPriceNumberWrapper.append(totalPriceInBasket);
+    basketPriceNumberWrapper.append(numberBikesInBasket);
+
+    bikesInBasketWrapper.prepend(basketPriceNumberWrapper);
+
+    const buttonForm = document.createElement('button');
+    buttonForm.classList.add('buttonForm');
+    buttonForm.textContent = 'Оформить';
+    bikesInBasketWrapper.append(buttonForm);
+
+
+// ===================== Подстрока с категориями  ========================= 
+     const cat = document.getElementById('category');
+
+     const line = document.getElementById('subline');
+     const submenu = document.getElementsByClassName('submenu')[0];
+
+    const basket_wrapper = document.querySelector('.basket_wrapper');
+    const basket_picture = document.querySelector('.basket_picture');
+
+
+      if (cat && submenu) {
+        cat.addEventListener("mouseover", () => {
+          submenu.style.height = "100px";
+          submenu.style.opacity = "1";
+        
+          line.style.opacity = "1";
+          line.style.height = "15vh";
+        })
+      };
+    
+      line.addEventListener("mouseleave", () => {
+        submenu.style.height = "0";
+        submenu.style.opacity = "0";
+      
+        line.style.opacity = "0";
+        line.style.height = "0";
+      });
+
+              submenu.addEventListener('click', ()=> {
+              body.innerHTML = ``;
+              resultDiv.innerHTML = ``;
+              renderFunction()
+            } );
+
+            
+// =============================== Оформление формы ================================================================
+
+            buttonForm.addEventListener ('click', () => this.openForm());
+
+    }
+
+            openForm ()
+            {
+              const body = document.body;
+              let resultDiv = document.getElementById (`result`);
+              resultDiv.innerHTML=``;
+              resultDiv.innerHTML=`
+              <form id="myForm" action="/submit" method="POST" enctype="multipart/form-data" onsubmit="getdata(event)">
+              <div class="form-container">
+
+                <div name="userForm">
+
+                  <div class="buttons_wrapper">
+                      <button type="button" id = "showData">Показать данные</button>
+
+                      <input type="reset" id = "resetData" value="Сбросить форму">
+                  </div>
+
+                  <label for="name">Имя:</label>
+                  <input type="text" id="name" name="name" size="50" required pattern="^[A-Za-z\s]+$">
+
+                  <label for="surname">Фамилия:</label>
+                  <input type="text" id="surname" name="surname" size="50" required pattern="^[A-Za-z\s]+$">
+                          
+                  <label for="telephone">Телефон:</label>
+                  <input type="text" id="telephone" name="telephone" required pattern="^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{3}[-.\s]?\d{4}$">
+
+                  <label for="email">Почта:</label>
+                  <input type="email" id="email" name="email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(?!ru$)[a-zA-Z]{2,}$">
+
+                  <div class="text_delivery"> <p> Доставка</p> </div>
+
+                  <label for="password">Адрес доставки:</label>
+                  <input type="text" id="adress" name="adress" required>
+
+                  <label>Способ доставки:</label>
+                  <div class="radio-group">
+                    <div class="radio-option">
+                      <input type="radio" id="newPost" name="delivery" value="newPost">
+                      <label for="newPost">НоваяПочта</label>
+                    </div>
+                              
+                    <div class="radio-option">
+                      <input type="radio" id="ukrPost" name="delivery" value="ukrPost">
+                      <label for="applePay">УкрПочта</label>
+                    </div>
+                              
+                    <div class="radio-option">
+                      <input type="radio" id="meest" name="delivery" value="meest">
+                      <label for="fop">MeestПочта</label>
+                    </div>
+                  </div>
+
+                  <label>Способ оплаты:</label>
+                  <div class="radio-group">
+                    <div class="radio-option">
+                      <input type="radio" id="cardPay" name="payment" value="cardPay">
+                      <label for="cardPay">Наличными или карточкой при получении</label>
+                    </div>
+
+                    <div class="radio-option">
+                      <input type="radio" id="applePay" name="payment" value="applePay">
+                      <label for="applePay">Оплата картой (Apple Pay, Google Pay)</label>
+                    </div>
+
+                    <div class="radio-option">
+                      <input type="radio" id="fop" name="payment" value="fop">
+                      <label for="fop">Оплата на счет (только для ФОП и ТОВ)</label>
+                    </div>
+                  </div>
+
+
+                  
+                  
+                  <div class="submitButton_wrapper">        
+                    <button type="button" id="submitButton">Отправить</button>
+                  </div>
+
+                </div>
+                <div id="output" class="output"></div>
+              </div>
+              `;
+              const submitButton = document.getElementById("submitButton");
+              const showData = document.getElementById("showData");
+              const resetData = document.getElementById("resetData");
+
+              submitButton.addEventListener ('click', (e)=>this.getdata(e));
+              showData.addEventListener ('click', (e)=>this.getdata(e));
+              resetData.addEventListener ('click', (e)=>this.openForm);
+              localStorage.setItem('currentView', 'form');
+
+
+            }
+
+            getdata(event) 
+            {
+              event.preventDefault();
+  
+              let name = document.getElementById("name").value;
+              let surname = document.getElementById("surname").value;
+              let telephone = document.getElementById("telephone").value;
+              let email = document.getElementById("email").value;
+              let adress = document.getElementById("adress").value;
+
+              // Радиокнопки: способ доставки
+              let delivery = document.querySelector('input[name="delivery"]:checked')?.value || "";
+
+              // Радиокнопки: способ оплаты
+              let payment = document.querySelector('input[name="payment"]:checked')?.value || "";
+        
+              let confirmationMessage = `
+				            <p><strong>Имя:</strong> ${name}</p>
+				            <p><strong>Фамилия:</strong> ${surname}</p>
+				            <p><strong>Телефон:</strong> ${telephone}</p>
+				            <p><strong>email:</strong> ${email}</p>
+				            <p><strong>Адрес доставки: </strong> ${adress}</p>
+				            <p><strong>Способ доставки:</strong> ${delivery}</p>
+				            <p><strong>Способ оплаты:</strong> ${payment}</p>				
+			              `;
+              let bikesInBasket = this.getCookieArray('bikesInBasket');
+              let bikesForSale = bikesInBasket.map(bike => {
+                return `
+                  <p><strong>Название:</strong> ${bike.name}, 
+                  <strong>Цена:</strong> ${bike.price}, 
+                  <strong>Цвет:</strong> ${bike.color}, 
+                  <strong>Кол-во:</strong> ${bike.count}</p>
+                `;
+              }).join('');
+              document.getElementById("output").innerHTML = confirmationMessage + `<strong> <br>Приобретенные товары:</strong> ${bikesForSale}`;
+              
+
+            }
+
+
+// ===============================================================================================
 // ===============================================================================================
 }  

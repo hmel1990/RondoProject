@@ -1,6 +1,6 @@
 
 
-import { openbasket, opencard, basketAdd } from "./main.js";
+import {opencard, basketAdd } from "./main.js";
 
 // =============================== class Store  ===================================================================================================
 
@@ -32,7 +32,7 @@ export class Store
 // =============================== Метод по отрисовке страницы  ===================================================================================================
 
 async  renderBikes(basket) {
-
+// let basket = new Basket();
 const mainblock__wrapper = document.createElement('div');
 mainblock__wrapper.classList.add('mainblock__wrapper');
 const body = document.body;
@@ -57,8 +57,8 @@ mainblock__content.innerHTML = `
           <div id="category">
             <a href="">categories</a>
           </div>
-          <a href="/about">about</a>
-          <a href="/contact">contact</a>
+          <a href="index.html">about</a>
+          <a href="index.html">contact</a>
         </nav>
         <div class="basket_wrapper">
           <div class="rondo_picture basket_picture"><img src="/img/basket2.png" alt=""></div>
@@ -99,8 +99,8 @@ lineWithCategory.innerHTML = `<p>${this.category}</p>`;
         line.style.height = "0";
       });
 
-    basket_picture.addEventListener ('click', openbasket);
-    basket_wrapper.addEventListener ('click', openbasket);
+    basket_picture.addEventListener ('click', () => basket.openbasket());
+    basket_wrapper.addEventListener ('click', () => basket.openbasket());
 // ======================================================================= 
 
 

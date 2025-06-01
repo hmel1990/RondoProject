@@ -9,12 +9,40 @@
   <title>Rondo – Будущее за пределами асфальта</title>
   <!-- Подключение стилей -->
   <link rel="stylesheet" href="styles.css">
+
+  <script type="module" src="admin.js" defer></script>
+
    
-  <!-- <script src = "store.js" defer></script> -->
   
 </head>
 
 <body>
+
+<div class="modal_wrapper">
+  <div class="modal_content">
+    <form id="adminForm" action="/submit" method="POST" enctype="multipart/form-data" onsubmit="openAdmin ()">
+
+      <div class="form_wrapper">
+        <label for="name">Login:</label>
+        <input type="text" id="Login" name="Login" size="50" required pattern="^[A-Za-z\s]+$">
+
+        <label for="surname">Password:</label>
+        <input type="text" id="Password" name="Password" size="50" required pattern="^[A-Za-z\s]+$">
+
+        <div class="submitButton_wrapper">
+          <button type="button" id="submitButton">
+            <p>Отправить</p>
+          </button>
+                    <button type="button" id="reject">
+            <p>Отменить</p>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
 <header>
   <div class="fullscreen">
     <div class="mainblock">      
@@ -38,7 +66,10 @@
           </div>
 
           <a href="#" onclick="return false;">about</a>
-          <a href="#" onclick="return false;">contact</a>
+          <div id="admin">
+          <a href="#" onclick="return false;">Admin</a>
+          </div>
+
         <!-- -------------------------------------------------------------------------- -->
 
         </nav>
@@ -50,7 +81,10 @@
     </div>
   </div>
 
+<!-- <script src="admin.js"></script> -->
+
 <script>
+  
       const basket_wrapper = document.querySelector('.basket_wrapper');
       const basket_picture = document.querySelector('.basket_picture');
           basket_picture.addEventListener ('click', () => {
@@ -59,7 +93,7 @@
             window.location.href = 'categories.html';
 
           });
-          basket_wrapper.addEventListener ('click', openbasket);
+          // basket_wrapper.addEventListener ('click', openbasket);
 </script>
 
 </header>

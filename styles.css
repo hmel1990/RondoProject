@@ -197,6 +197,89 @@ footer{
 
 }
 
+.form_wrapper {
+      margin: 11vh auto 0  auto;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 800px;
+}
+
+     .form_wrapper label {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+   
+    .form_wrapper input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0 16px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-sizing: border-box;
+      transition: border-color 0.3s;
+    }
+
+    .submitButton_wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+    #submitButton, #reject,
+    #submitButtonForUpload, #exitButtonForUpload{
+    min-width: 150px;
+    padding: 0.5rem 1rem;
+    margin: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color:rgb(75, 92, 113);
+    font-family: 'Roboto Serif', serif;
+    font-size: medium;
+
+    color: #ffffff;
+    cursor: pointer;
+    }
+
+    .modal_wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 98;
+
+        display: none;
+        opacity: 0;
+        transition: opacity 1.0s ease;
+    }
+
+    .header_text_form_wrapper{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    margin-bottom: 0;
+
+    }
+    .header_text_form{
+        padding-top: 5vh;
+            font-family: 'Roboto Serif', serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: black;
+    text-decoration: none;
+    margin-bottom: 0;
+    }
+    .form_wrapper_upload{
+        margin-top: 3vh;
+
+    }
+
 @media screen and (max-width:425px)
 {
 .mainblock {

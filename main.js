@@ -36,6 +36,7 @@ let basket;
             let store = new Store();
             store.renderBikes(basket);
             localStorage.setItem('currentView', 'home');
+
         }
 
 

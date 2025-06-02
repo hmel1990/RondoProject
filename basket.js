@@ -101,43 +101,45 @@ removeItemFromBasket (itemID)
             // let basket = new Basket();
             let body = document.body;
             body.innerHTML = `
+<div class="mainWrapperInBasket">
+    <div class="mainblock mainblock_in_basket">
+          <div class="mainblock__content basket_line">
+            <div id="subline">
+                    <ul class="submenu">
+                    <li><a href="categories.html?category=RUUT">RUUT</a></li>
+                    <li><a href="categories.html?category=MYLC">MYLC</a></li>
+                    <li><a href="categories.html?category=RATT">RATT</a></li>
+                </ul>
+            </div>
+            <div class="rondo_picture">
+              <img src="img/logo.png">
+            </div>
+            <!-- -------------------------------------------------------------------------- -->
+            <nav class="mainblock__nav">    
+              <a href="index.html">main</a    >
 
-<div class="mainblock mainblock_in_basket">
-      <div class="mainblock__content basket_line">
-        <div id="subline">
-                <ul class="submenu">
-                <li><a href="categories.html?category=RUUT">RUUT</a></li>
-                <li><a href="categories.html?category=MYLC">MYLC</a></li>
-                <li><a href="categories.html?category=RATT">RATT</a></li>
-            </ul>
-        </div>
-        <div class="rondo_picture">
-          <img src="img/logo.png">
-        </div>
-        <!-- -------------------------------------------------------------------------- -->
-        <nav class="mainblock__nav">
-          <a href="index.html">main</a>
+              <div id="category">
+                <span class="category-link">categories</span>
+              </div   >
 
-          <div id="category">
-            <a href="">categories</a>
+              <a href="#" onclick="return false;">about</a>
+              <a href="#" onclick="return false;">contact</a>   
+            <!-- -------------------------------------------------------------------------- --    >
+
+        </nav   >
+
+            <div class="basket_wrapper">
+              <div class="rondo_picture basket_picture"><img src="/img/basket2.png" alt=""></div>
+            </div>
           </div>
+     </div>
 
-          <a href="#" onclick="return false;">about</a>
-          <a href="#" onclick="return false;">contact</a>
-        <!-- -------------------------------------------------------------------------- -->
-
-        </nav>
-
-        <div class="basket_wrapper">
-          <div class="rondo_picture basket_picture"><img src="/img/basket2.png" alt=""></div>
-        </div>
-      </div>
-    </div>
             `;
 
             // Создаём и добавляем новый resultDiv
             const resultDiv = document.createElement('div');
             resultDiv.id = 'result';
+            resultDiv.className = 'basketResultDiv';
             body.appendChild(resultDiv);
             const bikesInBasketWrapper = document.createElement('div');
             bikesInBasketWrapper.id = 'bikesInBasketWrapper';

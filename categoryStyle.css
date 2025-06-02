@@ -64,15 +64,18 @@ pre {
     position: relative;
 }
 
-.mainblock__nav a {
+.mainblock__nav a, span {
     font-family: 'Roboto Serif', serif;
     font-weight: 700;
     font-size: 1.5rem;
     text-transform: uppercase;
     color: white;
     text-decoration: none;
+    cursor: pointer;
 
 }
+
+
 .rondo_picture{
     padding: 20px 5%;
 }
@@ -244,6 +247,10 @@ margin: 3vh auto;
     align-items: center;
 }
 
+.mainWrapperInBasket{
+    position: relative;
+    height: 5vh;
+}
 .mainblock_in_basket{
     position: absolute;
     top: 0;
@@ -391,12 +398,20 @@ margin: 3vh auto;
       border-radius: 8px;
       color: #333;
     }
+
+
 /* ================================================================================ */
 
 @media screen and (max-width:425px)
 {
 .bike_card {
 width: 90%;
+}
+.basket_wrapper{
+    width: 30%;
+    position: absolute;
+    right: 1vh;
+    top:1vh;
 }
 
 .mainblock__wrapper{
@@ -425,5 +440,43 @@ width: 90%;
     width: 100%;
     position: static;
 }
-} 
+
+.bike_card:first-child{
+    margin-top: 15vh;
+
+}
+.lineWithCategory  p {
+padding: 2vh 0;
+}
+
+.mainblock_in_basket{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+#bikesInBasketWrapper{
+
+}
+.basketResultDiv{
+    padding-top: 15vh;
+    display: flex;
+    flex-direction: column;
+
+}
+.basketPriceNumberWrapper{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 0;
+}
+
+        #subline {
+            position: absolute;
+                top: 230px;
+        }
+
+
+}
+
 

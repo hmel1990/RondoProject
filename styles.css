@@ -85,13 +85,14 @@ html,body{height:100%;width:100%;font-size:100%;line-height:1;font-size:14px;-ms
         filter: invert(100%);
 }
 
-.mainblock__nav a {
+.mainblock__nav a, span {
     font-family: 'Roboto Serif', serif;
     font-weight: 700;
     font-size: 1.5rem;
     text-transform: uppercase;
     color: white;
     text-decoration: none;
+    cursor: pointer;
 }
 
 
@@ -282,12 +283,20 @@ footer{
 
 @media screen and (max-width:425px)
 {
+    .basket_wrapper{
+        width: 20%;
+    }
+ 
+    #subline ul li:first-child{
+        padding-left: 20px;
+    }
 .mainblock {
     min-height: 100vh;
     display: flex;   
 }
 .mainblock__nav {
     flex-direction: column;
+
 }
 .mainblock__content {
     flex-direction: column;

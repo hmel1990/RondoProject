@@ -95,6 +95,9 @@ class Admin {
             const submitButtonForUpload = document.getElementById("submitButtonForUpload");
             const exitButtonForUpload = document.getElementById("exitButtonForUpload");
             submitButtonForUpload.addEventListener('click', () => this.getdataFromFormForUpload());
+            exitButtonForUpload.addEventListener('click', () => {
+              document.documentElement.scrollTop = 0;
+              document.location.reload()});
         }
         else (alert("логин или пароль неверные"))       
       })

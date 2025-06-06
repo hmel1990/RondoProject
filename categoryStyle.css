@@ -26,6 +26,16 @@ button:hover {
     background-color:rgba(75, 92, 113, 0.524);
 
 }
+
+button:active {
+    animation: pressAnimation 0.4s ease-in-out;
+}
+
+@keyframes pressAnimation {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.94); }
+    100% { transform: scale(1); }
+}
 pre {
     background-color: #2a2a2a;
     padding: 10px;

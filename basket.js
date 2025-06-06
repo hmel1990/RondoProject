@@ -5,7 +5,7 @@ export class Basket {
   async addToBasket(productItem) {
   
   // Пытаемся получить уже сохранённые товары
-  const existing = this.getCookie('bikesInBasket');
+  const existing = this.getCookie('bikesInBasket');                                                                 //getCookie
   let basketArray;
 
   if (existing) {
@@ -44,7 +44,7 @@ export class Basket {
 
 
 
-  document.cookie = `bikesInBasket=${encodeURIComponent(JSON.stringify(basketArray))}; path=/; max-age=${3600 * 24}`;
+  document.cookie = `bikesInBasket=${encodeURIComponent(JSON.stringify(basketArray))}; path=/; max-age=${3600 * 24}`; //document.cookie
 }
 
 
@@ -262,7 +262,7 @@ removeItemFromBasket (itemID)
               let resultDiv = document.getElementById (`result`);
               resultDiv.innerHTML=``;
               resultDiv.innerHTML=`
-              <form id="myForm" action="/submit" method="POST" enctype="multipart/form-data" onsubmit="getdata(event)">
+              <form id="myForm" action="/submit" method="POST" enctype="multipart/form-data">
               <div class="form-container">
 
                 <div name="userForm">
@@ -274,16 +274,16 @@ removeItemFromBasket (itemID)
                   </div>
 
                   <label for="name">Имя:</label>
-                  <input type="text" id="name" name="name" size="50" required pattern="^[A-Za-z\s]+$">
+                  <input type="text" id="name" name="name" maxlength="50" required pattern="^[A-Za-zА-Яа-яЁёЇїІіЄєҐґ\\s-]+$">
 
                   <label for="surname">Фамилия:</label>
-                  <input type="text" id="surname" name="surname" size="50" required pattern="^[A-Za-z\s]+$">
+                  <input type="text" id="surname" name="surname" required pattern="^[A-Za-zА-Яа-яЁёЇїІіЄєҐґ\\s-]+$">
                           
                   <label for="telephone">Телефон:</label>
-                  <input type="text" id="telephone" name="telephone" required pattern="^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{3}[-.\s]?\d{4}$">
+                  <input type="tel" id="telephone" name="telephone" required pattern="^\\+?\\d{10,15}$">
 
                   <label for="email">Почта:</label>
-                  <input type="email" id="email" name="email" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(?!ru$)[a-zA-Z]{2,}$">
+                  <input type="email" id="email" name="email" required>
 
                   <div class="text_delivery"> <p> Доставка</p> </div>
 
@@ -293,33 +293,29 @@ removeItemFromBasket (itemID)
                   <label>Способ доставки:</label>
                   <div class="radio-group">
                     <div class="radio-option">
-                      <input type="radio" id="newPost" name="delivery" value="newPost">
+                      <input type="radio" id="newPost" name="delivery" value="newPost" required>
                       <label for="newPost">НоваяПочта</label>
                     </div>
-                              
                     <div class="radio-option">
                       <input type="radio" id="ukrPost" name="delivery" value="ukrPost">
-                      <label for="applePay">УкрПочта</label>
+                      <label for="ukrPost">УкрПочта</label>
                     </div>
-                              
                     <div class="radio-option">
                       <input type="radio" id="meest" name="delivery" value="meest">
-                      <label for="fop">MeestПочта</label>
+                      <label for="meest">MeestПочта</label>
                     </div>
                   </div>
-
+                              
                   <label>Способ оплаты:</label>
                   <div class="radio-group">
                     <div class="radio-option">
-                      <input type="radio" id="cardPay" name="payment" value="cardPay">
+                      <input type="radio" id="cardPay" name="payment" value="cardPay" required>
                       <label for="cardPay">Наличными или карточкой при получении</label>
                     </div>
-
                     <div class="radio-option">
                       <input type="radio" id="applePay" name="payment" value="applePay">
                       <label for="applePay">Оплата картой (Apple Pay, Google Pay)</label>
                     </div>
-
                     <div class="radio-option">
                       <input type="radio" id="fop" name="payment" value="fop">
                       <label for="fop">Оплата на счет (только для ФОП и ТОВ)</label>
@@ -327,10 +323,11 @@ removeItemFromBasket (itemID)
                   </div>
 
 
+
                   
                   
                   <div class="submitButton_wrapper">        
-                    <button type="button" id="submitButton"><p>Отправить</p></button>
+                    <button type="submit" id="submitButton"><p>Отправить</p></button>
                   </div>
 
                 </div>
@@ -351,6 +348,16 @@ removeItemFromBasket (itemID)
 
             getdata(event) 
             {
+
+                const form = document.getElementById("myForm");
+  
+              // Проверка валидности формы
+              if (!form.checkValidity()) {
+                form.reportValidity(); // Показывает встроенные браузерные сообщения
+                return; // Прерываем выполнение, если форма невалидна
+              }
+
+
               event.preventDefault();
 
 

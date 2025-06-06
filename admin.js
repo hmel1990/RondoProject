@@ -58,7 +58,7 @@ class Admin {
         if (login === "hmel" && password === "123")
 
           {
-          let body = document.body;
+          let body = document.body;                                                          //валидация required pattern="^[A-Za-z\s]+$"
             body.innerHTML = `
             <form id="adminFormForUpload" action="/submit" method="POST" enctype="multipart/form-data" onsubmit="getdata(event)">
             <div class="header_text_form_wrapper"><div class="header_text_form"> Добавление нового продукта в базу</div></div>
@@ -66,26 +66,26 @@ class Admin {
                   <label for="category">category:</label>
                   <input type="text" id="category" name="category" size="50" required pattern="^[A-Za-z\s]+$">
                   <label for="name">name:</label>
-                  <input type="text" id="name" name="Login" size="50" required pattern="^[A-Za-z\s]+$">
+                  <input type="text" id="name" name="Login" size="50" required pattern="^[A-Za-z0-9\s\.\-]+$">
                   <label for="frame">frame:</label>
                   <input type="text" id="frame" name="frame" size="50" required pattern="^[A-Za-z\s]+$">
                   <label for="tyres">tyres:</label>
                   <input type="text" id="tyres" name="tyres" size="50" required pattern="^[A-Za-z\s]+$">
                   <label for="deraileurFront">deraileurFront:</label>
-                  <input type="text" id="deraileurFront" name="deraileurFront" size="50" required pattern="^[A-Za-z\s]+$">
+                  <input type="text" id="deraileurFront" name="deraileurFront" size="50" required pattern="^[A-Za-z0-9\s\.\-]+$">
                   <label for="deraileurRear">deraileurRear:</label>
-                  <input type="text" id="deraileurRear" name="deraileurRear" size="50" required pattern="^[A-Za-z\s]+$">
+                  <input type="text" id="deraileurRear" name="deraileurRear" size="50" required pattern="^[A-Za-z0-9\s\.\-]+$">
                   <label for="saddle">saddle:</label>
-                  <input type="text" id="saddle" name="saddle" size="50" required pattern="^[A-Za-z\s]+$">
+                  <input type="text" id="saddle" name="saddle" size="50" required pattern="^[A-Za-z0-9\s\.\-]+$">
                   <label for="shifters">shifters:</label>
-                  <input type="text" id="shifters" name="shifters" size="50" required pattern="^[A-Za-z\s]+$">
+                  <input type="text" id="shifters" name="shifters" size="50" required pattern="^[A-Za-z0-9\s\.\-]+$">
                   <label for="price">price:</label>
-                  <input type="text" id="price" name="price" size="50" required pattern="^[A-Za-z\s]+$">
+                  <input type="number" id="price" name="price" size="50" required min="0" step="0.01" title="Введите цену (например: 99.99)">
                   <label for="color">color:</label>
                   <input type="text" id="color" name="color" size="50" required pattern="^[A-Za-z\s]+$">
                   
                   <div class="submitButton_wrapper">        
-                    <button type="button" id="submitButtonForUpload"><p>Отправить</p></button>
+                    <button type="submit" id="submitButtonForUpload"><p>Отправить</p></button>
                     <button type="button" id="exitButtonForUpload"><p>Выход</p></button>
 
                   </div>
@@ -94,7 +94,8 @@ class Admin {
             `;
             const submitButtonForUpload = document.getElementById("submitButtonForUpload");
             const exitButtonForUpload = document.getElementById("exitButtonForUpload");
-            submitButtonForUpload.addEventListener('click', () => this.getdataFromFormForUpload());
+            submitButtonForUpload.addEventListener('click', (e) => this.getdataFromFormForUpload(e));
+            
             exitButtonForUpload.addEventListener('click', () => {
               document.documentElement.scrollTop = 0;
               document.location.reload()});
@@ -107,8 +108,19 @@ class Admin {
 
     }
 
-    getdataFromFormForUpload() 
+    getdataFromFormForUpload(event) 
             {
+                const form = document.getElementById("adminFormForUpload");
+                              // Проверка валидности формы
+              if (!form.checkValidity()) {
+                form.reportValidity(); // Показывает встроенные браузерные сообщения
+                return; // Прерываем выполнение, если форма невалидна
+              }
+
+
+              event.preventDefault();
+
+
                 let bikes = JSON.parse(localStorage.getItem('bikes'));
                 let id = bikes.length+1;
                 let category = document.getElementById("category").value;
@@ -133,12 +145,12 @@ class Admin {
 
 
             
-            async uploadBikes(bike) {
-  const urlParams = new URLSearchParams(window.location.search);
-  const category = urlParams.get('category');
+            async uploadBikes(bike) {                                                                 //async
+            const urlParams = new URLSearchParams(window.location.search);
+            const category = urlParams.get('category');
 
-  const addBikesUrl = 'http://hmel.myartsonline.com/dotnet/php/upload.php';
-  const getBikesUrl = 'http://hmel.myartsonline.com/dotnet/php/get_cities.php';
+            const addBikesUrl = 'http://hmel.myartsonline.com/dotnet/php/upload.php';
+            const getBikesUrl = 'http://hmel.myartsonline.com/dotnet/php/get_cities.php';
 
             const resultDiv = document.createElement ('div');
             resultDiv.classList.add ("resultDiv");
@@ -149,7 +161,7 @@ class Admin {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(bike)
               });
-              const result = await response.json();
+              const result = await response.json();                                                   //await
             
               if (!response.ok) throw new Error(result.error || 'Ошибка при отправке данных');
               alert(`${result.filter(item => item.status === "success").length}`)

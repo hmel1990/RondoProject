@@ -101,8 +101,7 @@ width: 100%;
     margin-top: 25vh;
 }
 
-/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-.bike_card { 
+.bike_card {                                                                            /* bike_card */
 width: 45%;
 height: 55vh;
 margin: 3vh auto;
@@ -233,9 +232,6 @@ margin: 3vh auto;
 }
 
 
-/* .cardLineInBasket {
-
-} */
 
 #bikesInBasketWrapper {
     margin: 10vh auto 0 auto;
@@ -307,6 +303,7 @@ margin: 3vh auto;
     }
     
     .form-container input[type="email"],
+    .form-container input[type="tel"],
     .form-container input[type="text"],
     .form-container input[type="password"],
     .form-container textarea,
@@ -474,6 +471,11 @@ padding: 2vh 0;
         #subline {
             position: absolute;
                 top: 230px;
+        }
+
+
+        .card_forShow_wrapper{
+            width: 100%;
         }
 
 

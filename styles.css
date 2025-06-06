@@ -216,7 +216,7 @@ footer{
     }
 
    
-    .form_wrapper input[type="text"] {
+    .form_wrapper input[type="text"], input[type="number"] {
       width: 100%;
       padding: 12px;
       margin: 8px 0 16px;

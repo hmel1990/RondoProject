@@ -5,7 +5,7 @@ export class Basket {
   async addToBasket(productItem) {
   
   // Пытаемся получить уже сохранённые товары
-  const existing = this.getCookie('bikesInBasket');                                                                 //getCookie
+  const existing = this.getCookie('bikesInBasket');                                                                                        //getCookie
   let basketArray;
 
   if (existing) {
@@ -44,7 +44,7 @@ export class Basket {
 
 
 
-  document.cookie = `bikesInBasket=${encodeURIComponent(JSON.stringify(basketArray))}; path=/; max-age=${3600 * 24}`; //document.cookie
+  document.cookie = `bikesInBasket=${encodeURIComponent(JSON.stringify(basketArray))}; path=/; max-age=${3600 * 24}`;                         //document.cookie
 }
 
 
@@ -92,6 +92,47 @@ removeItemFromBasket (itemID)
   document.cookie = `bikesInBasket=${encodeURIComponent(JSON.stringify(updatedArray))}; path=/; max-age=${3600 * 24}`;
 }
 
+addItemToBasket (itemID)
+{
+  let originalArray = this.getCookieArray('bikesInBasket');
+
+  originalArray.forEach(item => {
+  if (item.id === itemID) {
+    item.count += 1;
+  }
+});
+
+  const updatedArray = originalArray.filter(item => item.count > 0);    
+
+  document.cookie = `bikesInBasket=${encodeURIComponent(JSON.stringify(updatedArray))}; path=/; max-age=${3600 * 24}`;
+}
+
+removeAllItemsFromBasket (itemID)
+{
+  let originalArray = this.getCookieArray('bikesInBasket');
+
+  originalArray.forEach(item => {
+  if (item.id === itemID) {
+    item.count = 0;
+  }
+});
+
+  const updatedArray = originalArray.filter(item => item.count > 0);    
+
+  document.cookie = `bikesInBasket=${encodeURIComponent(JSON.stringify(updatedArray))}; path=/; max-age=${3600 * 24}`;
+}
+
+updateTotalsInDOM() {
+  const bikesInBasket = this.getCookieArray('bikesInBasket');
+  const count = bikesInBasket.reduce((acc, cur) => acc + cur.count, 0);
+  const totalPrice = bikesInBasket.reduce((acc, cur) => acc + cur.count * parseInt(cur.price), 0);
+
+  const totalPriceDiv = document.querySelector('.totalPriceInBasket');
+  const numberDiv = document.querySelector('.numberBikesInBasket');
+
+  if (totalPriceDiv) totalPriceDiv.textContent = `TotalPrice: ${totalPrice} USD`;
+  if (numberDiv) numberDiv.textContent = `Total number: ${count}`;
+}
 
 // ===================================== OPEN BASKET ==============================================================
 
@@ -176,24 +217,72 @@ removeItemFromBasket (itemID)
       cardLineInBasket.classList.add('cardLineInBasket');
       cardLineInBasket.setAttribute('data-id', bike.id);
       cardLineInBasket.innerHTML = `
+      <div class ="bikeInfoImagePlusMinus">
+      <div class ="bikeInfo">
       <h3> bike name:${bike.name}</h3> 
       <h3> bike price:${bike.price}</h3> 
-      <h3> bike quantity:${bike.count}</h3> 
+      </div> 
+      <div class ="imageInBasket"><img src="/img/${bike.id}.jpg"></div>
+      <div class ="plusMinus">
+      <button class ="minus" data-id="${bike.id}">-</button>
+      <div class ="quantity">${bike.count}</div>
+      <button class ="plus" data-id="${bike.id}">+</button>
+      </div>
+      </div>
       `;
       buttonAndProductWrapper.appendChild(cardLineInBasket);
       buttonAndProductWrapper.appendChild(buttonRemove);
 
-      buttonRemove.addEventListener ('click', (e) => {
+      const plus = cardLineInBasket.querySelector('.plus');
+      const minus = cardLineInBasket.querySelector('.minus');
       const basket = new Basket();
+
+      plus.addEventListener('click', (e) => {
+        const id = e.target.getAttribute('data-id');
+        basket.addItemToBasket(id);
+        // Обновляем количество в DOM
+        const quantityDiv = e.target.parentElement.querySelector('.quantity');
+        let currentCount = parseInt(quantityDiv.textContent);
+        quantityDiv.textContent = currentCount + 1;
+
+        basket.updateTotalsInDOM();
+
+      });
+
+
+      minus.addEventListener('click', (e) => {
+        const id = e.target.getAttribute('data-id');
+        basket.removeItemFromBasket(id);
+        const quantityDiv = e.target.parentElement.querySelector('.quantity');
+        let currentCount = parseInt(quantityDiv.textContent);
+        if (currentCount > 1) {
+          quantityDiv.textContent = currentCount - 1;
+        } else {
+          // Удалить весь блок товара
+          const item = e.target.closest('.buttonAndProductWrapper');
+          item.remove();
+        }
+        basket.updateTotalsInDOM();
+      });
+
+
+
+      buttonRemove.addEventListener ('click', (e) => {
       const id = e.target.getAttribute('data-id');
-      basket.removeItemFromBasket (id);
-      window.location.reload();
+      basket.removeAllItemsFromBasket (id);
+
+      const item = e.target.closest('.buttonAndProductWrapper');
+      item.remove();
+      
       });
 
 
       bikesInBasketWrapper.appendChild(buttonAndProductWrapper);
     });
     
+    const basketHeader = document.createElement('div');
+    basketHeader.innerHTML = `<h1 class = "basketHeader"> Basket </h1>`;
+
     const basketPriceNumberWrapper = document.createElement('div');
     basketPriceNumberWrapper.classList.add('basketPriceNumberWrapper');
 
@@ -204,9 +293,9 @@ removeItemFromBasket (itemID)
 
     const buttonForm = document.createElement('button');
     buttonForm.classList.add('buttonForm');
-    buttonForm.textContent = 'Оформить';
+    buttonForm.textContent = 'Place an order';
     bikesInBasketWrapper.append(buttonForm);
-
+    bikesInBasketWrapper.prepend (basketHeader);
 
 // ===================== Подстрока с категориями  ========================= 
      const cat = document.getElementById('category');

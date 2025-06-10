@@ -3,11 +3,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Roboto Serif', serif;
+
 }
 
 button {
     padding: 0.5rem 1rem;
-    margin: 10px;
+    margin: 7px 0;
     border-radius: 5px;
     border: none;
     background-color:rgb(75, 92, 113);
@@ -24,6 +26,7 @@ button{
 
 button:hover {
     background-color:rgba(75, 92, 113, 0.524);
+    border: 1px rgba(0, 0, 0, 0.719) solid;
 
 }
 
@@ -33,9 +36,48 @@ button:active {
 
 @keyframes pressAnimation {
     0% { transform: scale(1); }
-    50% { transform: scale(0.94); }
+    50% { transform: scale(0.80); }
     100% { transform: scale(1); }
 }
+.discount{
+    position: absolute;
+    bottom: 5%;
+    left: 40%;
+    color: #830ef1;
+    font-size: 1.1rem;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.274);
+    border-radius: 3px;
+
+}
+.heart {
+    position: absolute;
+    top: 7%;
+    right: 7%;
+    z-index: 2;
+
+    background-image: url('/img/heart.png');
+    background-repeat: no-repeat;
+    background-position: center center; /* или center center, right center и т.п. */
+    background-size: 30px 30px; /* подгоните под ваш размер */
+    padding: 20px; /* отступ, чтобы текст не налегал на иконку */
+    background-color: rgba(31, 61, 113, 0.455);
+}
+.scales{
+    position: absolute;
+    top: 20%;
+    right: 7%;
+    z-index: 2;
+
+    background-image: url('/img/scales.png');
+    background-repeat: no-repeat;
+    background-position: center center; /* или center center, right center и т.п. */
+    background-size: 30px 30px; /* подгоните под ваш размер */
+    padding: 20px; /* отступ, чтобы текст не налегал на иконку */
+    background-color: rgba(31, 61, 113, 0.455);
+}
+
+
+
 pre {
     background-color: #2a2a2a;
     padding: 10px;
@@ -115,11 +157,41 @@ width: 100%;
 width: 45%;
 height: 55vh;
 margin: 3vh auto;
+padding: 5vh;
+position: relative;
+cursor: pointer;
+
 
     background: white;
     border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.202);
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.274);
+    transition: box-shadow 0.6s ease, transform 0.6s ease, filter 0.6s ease;
+
+
+}
+
+.bike_card:hover {
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.592);
+    transform: scale(1.05);
+}
+.imageInBasket{
+  display: flex;
+
+}
+.bikeInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5vh;
+}
+.imageInBasket img {
+  max-width: 150px;
+  height: auto;
+}
+.cardLineInBasket{
+    display: flex;
 }
 
 .lineWithCategory {
@@ -127,7 +199,6 @@ margin: 3vh auto;
     width: 100%;
     background-color: rgba(128, 128, 128, 0.445);
     display: flex;
-    /* align-items: center; */
     justify-content: center;
 
 }
@@ -203,12 +274,9 @@ margin: 3vh auto;
     width: 80%;
     margin: 90px auto 0 auto;
     transition: margin 0.6s ease;
-
-
-
-
-
 }
+
+
 .card_forShow_wrapper_wrapper{
 
     width: 100%;
@@ -245,45 +313,71 @@ margin: 3vh auto;
 
 #bikesInBasketWrapper {
     margin: 10vh auto 0 auto;
-
     display: flex;
-    width: 100%;
+    width: 40%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border: 2px solid #0000001d;
+    border-radius: 30px;
+    padding: 0px 10px 30px 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+}
+.basketHeader{
+    padding-top: 3vh;
 }
 
 .mainWrapperInBasket{
     position: relative;
     height: 5vh;
+
 }
 .mainblock_in_basket{
     position: absolute;
     top: 0;
     left: 0;
+    
+}
+.buttonRemove{
+    height: 35px;
 }
 
 .basketPriceNumberWrapper{
     display: flex;
     justify-content: space-between;
-    width: 80%;
-    /* border: #ff5555 3px solid; */
+    width: 100%;
     background-color: rgba(128, 128, 128, 0.336);
     padding: 10px 50px;
-    margin: 10vh auto 0;
+    margin: 4vh auto 0;
     font-weight: bold;
     font-size: 1.2rem;
+
 }
 .buttonAndProductWrapper {
  display: flex;
+ flex-direction: row;
  justify-content: space-between;
- width: 80%;
- border-bottom: black solid 1px;
+ width: 100%;
+ border-bottom: rgb(179, 175, 175) solid 2px;
+ align-items: center;
 
- /* border: 3px salmon solid;    */
+
+
 }
-
+.plusMinus{
+    width: 150px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.bikeInfoImagePlusMinus{
+    display: flex;
+    gap: 5vh;
+}
 .buttonForm {
+    margin-top: 3vh;
     width: 300px;
     background-color:rgb(75, 92, 113);
        

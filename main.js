@@ -39,8 +39,6 @@ import {Product} from "./product.js";
         }
 
 
-        // open card 
-
 
 
       export async function basketAdd(e, basket)

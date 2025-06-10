@@ -65,14 +65,14 @@ lineWithCategory.innerHTML = `<p>${this.category}</p>`;
 
 
       if (cat && submenu) {
-        cat.addEventListener("mouseover", () => {
+        cat.addEventListener("mouseover", () => {                                                         // addEventListener
           submenu.style.height = "100px";
           submenu.style.opacity = "1";
         
           line.style.opacity = "1";
           line.style.height = "25vh";
         })
-          cat.addEventListener("touchstart", () => {
+          cat.addEventListener("touchstart", () => {                                                      // addEventListener
           submenu.style.height = "100px";
           submenu.style.opacity = "1";
         
@@ -81,7 +81,7 @@ lineWithCategory.innerHTML = `<p>${this.category}</p>`;
         })
       };
     
-      line.addEventListener("mouseleave", () => {
+      line.addEventListener("mouseleave", () => {                                                         // addEventListener
         submenu.style.height = "0";
         submenu.style.opacity = "0";
       
@@ -105,7 +105,7 @@ let products = []; // Инициализация как массива
 
   try 
   {
-    const response = await fetch(this.getBikesUrl);                                               //await
+    const response = await fetch(this.getBikesUrl);                                               //await fetch
 
     if (!response.ok) {
       throw new Error(`Ошибка: ${response.statusText}`);
@@ -139,11 +139,15 @@ let products = []; // Инициализация как массива
         card.style.background = `url(${bike.image}) center center/contain no-repeat`;
                
         card.innerHTML = `
-          <h3>${bike.name}</h3>
-          <p>${bike.price} USD.</p>
+          <h3>Model name: ${bike.name}</h3>
+          <p>Price: ${bike.price} USD.</p>
+          <p>Color: ${bike.color} USD.</p>
           <button class="add-to-cart" id = "buybtn" data-id="${bike.id}" data-name="${bike.name}" data-price="${bike.price}">
             В корзину
           </button>
+          <button class="heart"></button>
+          <button class="scales"></button>
+          <div class="discount">Price with discount: ${bike.price*0.9}</div>
         `;
 
         mainContainer.appendChild (card) // добавляем каждую созданную карту товара в общий контейнер
@@ -164,6 +168,14 @@ let products = []; // Инициализация как массива
           });
       });
       // =======================================================================================
+      const buttonsHeart = document.querySelectorAll('.heart');
+      const buttonsScales = document.querySelectorAll('.scales');
+      buttonsHeart.forEach (button => {
+          button.addEventListener('click', (e) => {e.stopPropagation()})
+      });
+      buttonsScales.forEach (button => {
+          button.addEventListener('click', (e) => {e.stopPropagation();})
+      });
 
         // ================ Ставим обработчик событий на нажатие на кнопку ==========================
 

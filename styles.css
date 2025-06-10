@@ -3,6 +3,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Roboto Serif', serif;
+
 }
 
 html,body{height:100%;width:100%;font-size:100%;line-height:1;font-size:14px;-ms-text-size-adjust:100%;-moz-text-size-adjust:100%;-webkit-text-size-adjust:100%;} /*-- главное что высота для body и для html указана 100% -->*/
@@ -10,6 +12,7 @@ html,body{height:100%;width:100%;font-size:100%;line-height:1;font-size:14px;-ms
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    
 }
 .mainblock {
     min-height: 100vh;

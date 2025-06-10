@@ -105,6 +105,7 @@ pre {
     display: flex;
     width: 100%;
     position: fixed;
+    z-index: 4;
 }
 
 .mainblock__nav {

@@ -218,11 +218,13 @@ updateTotalsInDOM() {
       cardLineInBasket.setAttribute('data-id', bike.id);
       cardLineInBasket.innerHTML = `
       <div class ="bikeInfoImagePlusMinus">
+      <div class="controlsWrapper">
       <div class ="bikeInfo">
       <h3> bike name:${bike.name}</h3> 
       <h3> bike price:${bike.price}</h3> 
       </div> 
       <div class ="imageInBasket"><img src="/img/${bike.id}.jpg"></div>
+      </div> 
       <div class ="plusMinus">
       <button class ="minus" data-id="${bike.id}">-</button>
       <div class ="quantity">${bike.count}</div>
@@ -230,8 +232,14 @@ updateTotalsInDOM() {
       </div>
       </div>
       `;
+      // buttonAndProductWrapper.appendChild(cardLineInBasket);
+      // buttonAndProductWrapper.appendChild(buttonRemove);
+      
+      const bikeInfoImagePlusMinus = cardLineInBasket.querySelector('.bikeInfoImagePlusMinus');
+      bikeInfoImagePlusMinus.appendChild(buttonRemove);
+
       buttonAndProductWrapper.appendChild(cardLineInBasket);
-      buttonAndProductWrapper.appendChild(buttonRemove);
+
 
       const plus = cardLineInBasket.querySelector('.plus');
       const minus = cardLineInBasket.querySelector('.minus');

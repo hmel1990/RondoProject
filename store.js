@@ -136,7 +136,7 @@ let products = []; // Инициализация как массива
         const card = document.createElement('div'); // создаем контейнер с карточкой товара
         card.classList.add('bike_card');
         card.setAttribute('data-id', bike.id);
-        card.style.background = `url(${bike.image}) center center/contain no-repeat`;
+        card.style.background = `url(${bike.image}) center center/80% no-repeat`;
                
         card.innerHTML = `
           <h3>Model name: ${bike.name}</h3>

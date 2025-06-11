@@ -168,9 +168,8 @@ cursor: pointer;
     padding: 40px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.274);
     transition: box-shadow 0.6s ease, transform 0.6s ease, filter 0.6s ease;
-
-
 }
+
 
 .bike_card:hover {
     box-shadow: 0 4px 25px rgba(0, 0, 0, 0.592);
@@ -193,6 +192,9 @@ cursor: pointer;
 }
 .cardLineInBasket{
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
 .lineWithCategory {
@@ -315,7 +317,8 @@ cursor: pointer;
 #bikesInBasketWrapper {
     margin: 10vh auto 0 auto;
     display: flex;
-    width: 40%;
+    min-width: 50%;
+    max-width: 60%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -323,6 +326,7 @@ cursor: pointer;
     border-radius: 30px;
     padding: 0px 10px 30px 10px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    
 
 }
 .basketHeader{
@@ -332,12 +336,14 @@ cursor: pointer;
 .mainWrapperInBasket{
     position: relative;
     height: 5vh;
+    
 
 }
 .mainblock_in_basket{
     position: absolute;
     top: 0;
     left: 0;
+
     
 }
 .buttonRemove{
@@ -358,13 +364,10 @@ cursor: pointer;
 .buttonAndProductWrapper {
  display: flex;
  flex-direction: row;
- justify-content: space-between;
+ justify-content: center;
  width: 100%;
  border-bottom: rgb(179, 175, 175) solid 2px;
  align-items: center;
-
-
-
 }
 .plusMinus{
     width: 150px;
@@ -376,6 +379,10 @@ cursor: pointer;
 .bikeInfoImagePlusMinus{
     display: flex;
     gap: 5vh;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
 }
 .buttonForm {
     margin-top: 3vh;
@@ -500,6 +507,11 @@ cursor: pointer;
       border-radius: 8px;
       color: #333;
     }
+     .controlsWrapper{
+        display: flex;
+        justify-content: space-between;
+        width: 50%;
+     }
 
 
 /* ================================================================================ */
@@ -587,3 +599,26 @@ padding: 2vh 0;
 }
 
 
+@media screen and (max-width:1200px)
+{
+    .controlsWrapper{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+    .cardLineInBasket{
+        flex-wrap: wrap;
+    }
+    .bikeInfoImagePlusMinus {
+    flex-wrap: wrap;              /* разрешаем перенос строк */
+    gap: 2vh;
+  }
+  .add-to-cart{
+    position: absolute;
+    bottom: 2%;
+    left: 7%;
+  }
+  .bike_card{
+    height: 60vh;
+  }
+}
